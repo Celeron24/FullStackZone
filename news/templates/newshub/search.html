@@ -1,0 +1,24 @@
+{% extends 'boot/boot.html' %}
+
+{% block content %}
+
+<div class="container mt-4">
+    <h2 style="margin-bottom: 20px;">Search Results</h2>
+    {% if search_results %}
+        <ul class="list-group">
+            {% for result in search_results %}
+                <li class="list-group-item">
+                    <h3 style="margin-bottom: 10px;">{{ result.title }}</h3>
+                    {% if result.image_url %}
+                        <img src="{{ result.image_url }}" alt="Image" style="max-width: 100%; margin-bottom: 10px;">
+                    {% endif %}
+                    <p style="margin-bottom: 0;">{{ result.description | striptags }}</p>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No search results found.</p>
+    {% endif %}
+</div>
+
+{% endblock %}

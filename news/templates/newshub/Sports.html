@@ -1,0 +1,27 @@
+{% extends 'boot/boot.html' %}
+
+{% block content %}
+ <div class="container">
+        <div class="row">
+            {% for entry in entries %}
+            <div class="col-md-4">
+                <div class="card mb-4 box-shadow">
+                    {% if entry.image_url %}
+                    <img class="card-img-top" src="{{ entry.image_url }}" alt="Card image cap">
+                    {% endif %}
+                    <div class="card-body">
+                        <h5 class="card-title">{{ entry.title }}</h5>
+                        <p class="card-text">{{ entry.summary }}</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="btn-group">
+                                <a href="{{ entry.link }}" class="btn btn-sm btn-outline-secondary">Read more</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+{% endblock %}

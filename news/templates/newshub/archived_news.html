@@ -1,0 +1,66 @@
+
+{% block content %}
+    <head>
+        <title>Archived News</title>
+    </head>
+
+    <div style="background-color: #337ab7; text-align: center; color: #fff; padding: 20px 0; margin-bottom: 20px;">
+        <form method="post" action="/archive/" style="display: inline;">
+            {% csrf_token %}
+            <label style="display: inline-block;">Select Archive Date: </label>
+            {{ form.filter_archive_date }}
+            <input type="submit" name="submit_archive" class="filter_archive_button btn btn-primary" value="Submit">
+        </form>
+        <a href="{% url 'index' %}"><button class="btn btn-secondary">Back</button></a>
+    </div>
+
+
+    <div>
+        {% if archived_news %}
+            <h2 style="text-align: center;">Archived News</h2>
+            <hr>
+            <ul>
+                {% for article in archived_news %}
+                    <li style="text-align: center;">
+                        {% if article.image_url %}
+                            <img src="{{ article.image_url }}" class="d-block w-100" alt="News Image" style="max-width: 100%; margin-bottom: 10px; border-radius: 5px; width: 240px; height: 240px;">
+                        {% endif %}
+                        <h3>{{ article.title }}</h3>
+                        <p>{{ article.description }}</p>
+                        <a href="{{ article.link }}">{{ article.link }}</a>
+                        <p>Published Date: {{ article.published_date }}</p>
+                        <!-- Add more details as needed -->
+                    </li>
+                    <hr>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No archived news available for the selected date.</p>
+        {% endif %}
+    </div>
+
+
+    {% comment %} get data from database {% endcomment %}
+    <div>
+        {% if news %}
+            <h2 style="text-align: center;">All News</h2>
+            <hr>
+            <ul>
+                {% for newse in news %}
+                    <li style="text-align: center;">
+                        <img src="{{ newse.image_url.url }}" class="d-block w-100" alt="News Image" style="max-width: 100%; margin-bottom: 10px; border-radius: 5px; width: 240px; height: 240px;">
+                        <h3>{{ newse.news_title }}</h3>
+                        <p>{{ newse.description }}</p>
+                        <a href="{{ newse.link }}">{{ newse.link }}</a>
+                        <p>Published Date: {{ newse.published_date }}</p>
+                        <!-- Add more details as needed -->
+                    </li>
+                    <hr>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No stored news available.</p>
+        {% endif %}
+    </div>
+
+{% endblock %}
